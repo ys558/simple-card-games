@@ -8,33 +8,26 @@
       @update:shuffledCards="updateShuffledCards"
       @update:playerCards="clearPlayerCards"
     />
-    <div class="player-cards" v-if="playerCards.length > 0">
-      <button @click="distributeCards" :disabled="!canDistributeCards">Distribute Cards</button>
-      <h2>Player Cards:</h2>
-      <div
-        v-for="(player, index) in playerCards"
-        :key="index"
-        :class="{ player: true, winner: winner === index + 1 }"
-      >
-        <h3>Player {{ index + 1 }}</h3>
-        <ul>
-          <li v-for="(card, idx) in player" :key="idx">{{ card }}</li>
-        </ul>
-      </div>
-    </div>
-    <div class="find-winner">
-      <button @click="findWinner" :disabled="!canFindWinner">Find Winner</button>
-      <div v-if="winner">
-        <h2>Winner:</h2>
-        <p>Player {{ winner }}</p>
-      </div>
-    </div>
+    <PlayerCards
+      :playerCards="playerCards"
+      :canDistributeCards="canDistributeCards"
+      :distributeCards="distributeCards"
+      :winner="winner"
+      
+    />
+    <FindWinner
+      :canFindWinner="canFindWinner"
+      :findWinner="findWinner"
+      :winner="winner"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { ref } from 'vue';
 import ShuffleCards from './components/ShuffleCards.vue';
+import PlayerCards from './components/PlayerCards.vue';
+import FindWinner from './components/FindWinner.vue';
 
 export default {
     setup() {
@@ -134,7 +127,7 @@ export default {
           clearPlayerCards
         };
     },
-    components: { ShuffleCards }
+    components: { ShuffleCards, PlayerCards, FindWinner }
 };
 </script>
 
