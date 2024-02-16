@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   props: {
     playerCards: Array,
@@ -21,3 +21,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.winner {
+  border: 2px solid green;
+}
+</style>

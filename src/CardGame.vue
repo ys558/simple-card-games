@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { ref } from 'vue';
 import ShuffleCards from './components/ShuffleCards.vue';
 import PlayerCards from './components/PlayerCards.vue';
@@ -31,11 +31,11 @@ import FindWinner from './components/FindWinner.vue';
 
 export default {
     setup() {
-        const playerCards = ref<Array<string[]>>([[], [], [], []]);
-        const winner = ref<null | number>(null);
+        const playerCards = ref([[], [], [], []]);
+        const winner = ref(null);
         const canFindWinner = ref(false);
         const canDistributeCards = ref(true);
-        const shuffledCards = ref<string[]>([]);
+        const shuffledCards = ref([]);
 
         const distributeCards = () => {
             // clear last time winner result and CSS effects
@@ -68,9 +68,7 @@ export default {
                 const sameNumberCards = cards.reduce((acc, card) => {
                     acc[card[0]] = (acc[card[0]] || 0) + 1;
                     return acc;
-                }, ({} as {
-                    [key: string]: number;
-                }));
+                }, {});
                 const maxCount = Math.max(...Object.values(sameNumberCards));
                 return Object.keys(sameNumberCards).filter(key => sameNumberCards[key] === maxCount);
             });
@@ -105,7 +103,7 @@ export default {
             });
         };
 
-        const updateShuffledCards = (newShuffledCards: string[]) => {
+        const updateShuffledCards = (newShuffledCards) => {
           shuffledCards.value = newShuffledCards;
         };
 
